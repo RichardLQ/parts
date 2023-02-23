@@ -2,10 +2,7 @@
   <div class="order">
     <div class="order_header">
       <div class="header_img">
-        <img
-          src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
-          alt=""
-        />
+        <img src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg" alt="" />
       </div>
       <div class="header_title">
         <div class="title_title">龙猫兼职</div>
@@ -25,7 +22,7 @@
         <div class="title_middle"></div>
       </div>
     </div>
-    <div style="padding-top:.6rem;">
+    <div style="padding-top: 0.6rem">
       <!-- <van-divider /> -->
     </div>
     <div class="order_users">
@@ -96,16 +93,248 @@
             fit="fill"
             src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
           />
-          <van-icon class="img_num" style="vertical-align:middle;padding-bottom:1.3rem" size="1.5rem" name="ellipsis" />
+          <van-icon
+            class="img_num"
+            style="vertical-align: middle; padding-bottom: 1.3rem"
+            size="1.5rem"
+            name="ellipsis"
+          />
         </div>
       </div>
     </div>
-    <div  style="padding-top:.6rem;">
-    </div>
+    <div style="padding-top: 0.6rem"></div>
     <div class="order_desc">
-      <div class="desc_title">社群简介</div>
+      <div class="desc_title"><span class="title_span"></span> 社群简介</div>
       <van-divider />
-      <div class="desc_content">帮助更多人找到兼职信息</div>
+      <div class="desc_content">
+        帮助更多人找到兼职信息，每天都会实时分享深圳优质兼职，也可在社群上发布兼职信息，进入会员社群后可看到所有联系方式噢OVO
+      </div>
+    </div>
+    <div class="order_topic">
+      <div class="topic_title">
+        <div class="desc_title"><span class="title_span"></span> 话题预览</div>
+      </div>
+
+      <van-cell class="order_container">
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+
+        <div class="order_item">
+          <div class="topic_user">
+            <div class="user_img">
+              <van-image
+                round
+                class="img_num"
+                width="2.4rem"
+                height="2.4rem"
+                fit="fill"
+                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+              />
+            </div>
+            <div class="user_title">龙猫兼职</div>
+            <div class="user_date">02月22日</div>
+          </div>
+          <div class="order_content">
+            <div class="content_item">
+              本周六 充场兼职<br />
+              人工智能讲座暖场<br />
+              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
+              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
+              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+            </div>
+          </div>
+        </div>
+      </van-cell>
+      <!-- <van-back-top /> -->
+
+      
+      <van-sticky :offset-bottom="0" position="bottom">
+  <div class="order_bottom">
+  <div class="bottom_content">
+    ￥<span style="font-size:1.5rem">19.88</span>元/季度
+  </div>
+  <div class="bottom_btn"><van-button type="warning" size="small">购买</van-button></div>
+  </div>
+</van-sticky>
       
     </div>
   </div>
@@ -113,22 +342,30 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Icon, Divider, Image as VanImage } from "vant";
+import { Icon, Divider, Image as VanImage, BackTop,Sticky,Button } from "vant";
 export default defineComponent({
   components: {
     [Icon.name]: Icon,
     [Divider.name]: Divider,
     [VanImage.name]: VanImage,
+    [BackTop.name]: BackTop,
+    [Sticky.name]: Sticky,
+    [Button.name]: Button,
   },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less"  scoped>
+<style lang="less" scoped>
+.title_span {
+  border: 1px solid #07c160;
+  margin-right: 0.2rem;
+}
 .order {
-  margin: 1rem 1rem 0.1rem 1rem;
+  
   background-color: #f3f3f3;
   .order_header {
+    padding: 1rem 1rem 0.1rem 1rem;
     background-color: white;
     display: flex;
     .header_img {
@@ -152,9 +389,11 @@ export default defineComponent({
       }
     }
   }
-  .order_users {
-     background-color: white;
-     padding-top: .6rem;
+  .order_users,
+  order_topic {
+    padding: 1rem 1rem 0.1rem 1rem;
+    background-color: white;
+    padding-top: 0.6rem;
     .users_title {
       span {
         color: #07c160;
@@ -167,8 +406,88 @@ export default defineComponent({
       }
     }
   }
-  .order_desc{
+  .order_desc {
+    padding: 1rem 1rem 0.1rem 1rem;
     background-color: white;
+    .van-divider {
+      margin: 1rem 0 0.3rem 0;
+    }
+    .desc_title {
+      padding-top: 0.5rem;
+      font-weight: 700;
+    }
+    .desc_content {
+      padding-bottom: 0.5rem;
+    }
+  }
+  .order_topic {
+    
+    padding-top: 0.4rem;
+    .topic_title {
+      padding: 1rem  1rem 0;
+      background-color: white;
+      border-bottom: 3px solid #f3f3f3;
+      .desc_title{
+        padding-bottom: .8rem;
+      }
+    }
+    .topic_user {
+      padding: 1rem 1rem 0.1rem 1rem;
+      .user_img {
+        flex: 1;
+      }
+      padding-top: 1rem;
+      background-color: white;
+      display: flex;
+      .user_title,
+      .user_date {
+        margin-top: 0.7rem;
+        vertical-align: bottom;
+        margin-left: 0.6rem;
+      }
+      .user_title {
+        color: #f09b4a;
+      }
+      .user_date {
+        flex: 6;
+        text-align: right;
+        font-size: 0.6rem;
+        color: #c8c8c8;
+      }
+    }
+  }
+  .order_content {
+    padding: 1rem 1rem 0.1rem 1rem;
+    background-color: white;
+    padding-top: 1rem;
+    padding-bottom: 0.1rem;
+    margin-bottom: 0.6rem;
+    .content_item {
+      padding: 0 0.2rem 0.2rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+    }
+  }
+  .order_bottom{
+    display: flex;
+    padding: .5rem .8rem .5rem .8rem;
+    border: 3px solid #f3f3f3;
+    background-color: white;
+    .bottom_content{
+      flex: 1;
+      color: #ff976a;
+    }
+.bottom_btn{
+  float: right;
+  width: 7rem;
+  .van-button--small{
+    width: 100%;
+  }
+}
   }
 }
 </style>
