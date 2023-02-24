@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -17,7 +18,13 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "@api/*": [
+        "src/requests/*"
+      ],
+      "@views/*": [
+        "src/views/*"
+      ],
     },
     "lib": [
       "esnext",

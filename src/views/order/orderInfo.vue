@@ -2,7 +2,7 @@
   <div class="order">
     <div class="order_header">
       <div class="header_img">
-        <img src="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg" alt="" />
+        <img src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg" alt="" />
       </div>
       <div class="header_title">
         <div class="title_title">龙猫兼职</div>
@@ -125,10 +125,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -151,10 +151,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -177,10 +177,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -203,10 +203,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -229,10 +229,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -255,10 +255,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -281,10 +281,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -307,10 +307,10 @@
                 width="2.4rem"
                 height="2.4rem"
                 fit="fill"
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫兼职</div>
+            <div class="user_title">龙猫社群 深圳圈</div>
             <div class="user_date">02月22日</div>
           </div>
           <div class="order_content">
@@ -330,7 +330,7 @@
       <van-sticky :offset-bottom="0" position="bottom">
   <div class="order_bottom">
   <div class="bottom_content">
-    ￥<span style="font-size:1.5rem">19.88</span>元/季度
+    ￥<span style="font-size:1.5rem">9.90</span>元/月
   </div>
   <div class="bottom_btn"><van-button type="warning" size="small">购买</van-button></div>
   </div>
@@ -342,6 +342,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import  {getuserinfor}  from '@api/order/order';
 import { Icon, Divider, Image as VanImage, BackTop,Sticky,Button } from "vant";
 export default defineComponent({
   components: {
@@ -352,6 +353,26 @@ export default defineComponent({
     [Sticky.name]: Sticky,
     [Button.name]: Button,
   },
+  //  data() {
+  //   return {};
+  // },
+  mounted() {
+    this.getlogin()
+  },
+  methods:{
+    getlogin() {
+      let params = {
+        emile: 123,
+        name: "zhangsna",
+      };
+      let data = getuserinfor(params);
+      console.log(data.then(res=>{
+        console.log(res)
+      }))
+      console.log(223)
+    },
+  },
+
 });
 </script>
 
