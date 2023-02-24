@@ -2,7 +2,10 @@
   <div class="order">
     <div class="order_header">
       <div class="header_img">
-        <img src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg" alt="" />
+        <img
+          src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
+          alt=""
+        />
       </div>
       <div class="header_title">
         <div class="title_title">龙猫兼职</div>
@@ -116,7 +119,8 @@
       </div>
 
       <van-cell class="order_container">
-        <div class="order_item">
+      <div v-for="(item,index) in partlist" :key="index">
+      <div class="order_item">
           <div class="topic_user">
             <div class="user_img">
               <van-image
@@ -128,222 +132,39 @@
                 src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
               />
             </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
+            <div class="user_title">{{item.username}}</div>
+            <div class="user_date">{{item.createtime}}</div>
           </div>
           <div class="order_content">
             <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
+              {{item.content}}
             </div>
           </div>
         </div>
+      
+      </div>
 
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
-
-        <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
-            </div>
-            <div class="user_title">龙猫社群 深圳圈</div>
-            <div class="user_date">02月22日</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              本周六 充场兼职<br />
-              人工智能讲座暖场<br />
-              时间: 8:50-12:00 无需做事， 坐着配合鼓鼓掌。<br />要求:男生18-32 岁，
-              女生18-26岁，早上8:30南山麒麟山庄接待处大萨达撒发送到发送到发士大夫士大夫
-              撒打发士大夫撒旦法打发撒的发生大幅度飞洒发发送到发送到
-            </div>
-          </div>
-        </div>
       </van-cell>
       <!-- <van-back-top /> -->
 
-      
       <van-sticky :offset-bottom="0" position="bottom">
-  <div class="order_bottom">
-  <div class="bottom_content">
-    ￥<span style="font-size:1.5rem">9.90</span>元/月
-  </div>
-  <div class="bottom_btn"><van-button type="warning" size="small">购买</van-button></div>
-  </div>
-</van-sticky>
-      
+        <div class="order_bottom">
+          <div class="bottom_content">
+            ￥<span style="font-size: 1.5rem">9.90</span>元/月
+          </div>
+          <div class="bottom_btn">
+            <van-button type="warning" size="small">购买</van-button>
+          </div>
+        </div>
+      </van-sticky>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import  {getuserinfor}  from '@api/order/order';
-import { Icon, Divider, Image as VanImage, BackTop,Sticky,Button } from "vant";
+import { hotlist } from "@api/order/order";
+import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button } from "vant";
 export default defineComponent({
   components: {
     [Icon.name]: Icon,
@@ -353,26 +174,25 @@ export default defineComponent({
     [Sticky.name]: Sticky,
     [Button.name]: Button,
   },
-  //  data() {
-  //   return {};
-  // },
-  mounted() {
-    this.getlogin()
+  data() {
+    return {
+      partlist :[]
+    };
   },
-  methods:{
-    getlogin() {
+  mounted() {
+    this.getPartList();
+  },
+  methods: {
+    getPartList() {
       let params = {
-        emile: 123,
-        name: "zhangsna",
+        userid: 2,
       };
-      let data = getuserinfor(params);
-      console.log(data.then(res=>{
-        console.log(res)
-      }))
-      console.log(223)
+      hotlist(params).then((res) => {
+        console.log(res);
+        this.$data.partlist = res.data
+      });
     },
   },
-
 });
 </script>
 
@@ -383,7 +203,6 @@ export default defineComponent({
   margin-right: 0.2rem;
 }
 .order {
-  
   background-color: #f3f3f3;
   .order_header {
     padding: 1rem 1rem 0.1rem 1rem;
@@ -442,14 +261,13 @@ export default defineComponent({
     }
   }
   .order_topic {
-    
     padding-top: 0.4rem;
     .topic_title {
-      padding: 1rem  1rem 0;
+      padding: 1rem 1rem 0;
       background-color: white;
       border-bottom: 3px solid #f3f3f3;
-      .desc_title{
-        padding-bottom: .8rem;
+      .desc_title {
+        padding-bottom: 0.8rem;
       }
     }
     .topic_user {
@@ -493,22 +311,22 @@ export default defineComponent({
       -webkit-box-orient: vertical;
     }
   }
-  .order_bottom{
+  .order_bottom {
     display: flex;
-    padding: .5rem .8rem .5rem .8rem;
+    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
     border: 3px solid #f3f3f3;
     background-color: white;
-    .bottom_content{
+    .bottom_content {
       flex: 1;
       color: #ff976a;
     }
-.bottom_btn{
-  float: right;
-  width: 7rem;
-  .van-button--small{
-    width: 100%;
-  }
-}
+    .bottom_btn {
+      float: right;
+      width: 7rem;
+      .van-button--small {
+        width: 100%;
+      }
+    }
   }
 }
 </style>
