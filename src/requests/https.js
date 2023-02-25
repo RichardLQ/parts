@@ -6,7 +6,7 @@ import qs from 'qs'
 switch(process.env.NODE_ENV){
   // 生产环境，部署到服务器上的环境
   case 'production':
-  axios.defaults.baseURL='http://api.zhengqinan.cn';
+  axios.defaults.baseURL='https://www.sourcandy.cn/part/';
   break;
   //设置测式环境的接口地址
    case 'text':

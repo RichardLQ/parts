@@ -119,31 +119,29 @@
       </div>
 
       <van-cell class="order_container">
-      <div v-for="(item,index) in partlist" :key="index">
-      <div class="order_item">
-          <div class="topic_user">
-            <div class="user_img">
-              <van-image
-                round
-                class="img_num"
-                width="2.4rem"
-                height="2.4rem"
-                fit="fill"
-                src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
-              />
+        <div v-for="(item, index) in partlist" :key="index">
+          <div class="order_item">
+            <div class="topic_user">
+              <div class="user_img">
+                <van-image
+                  round
+                  class="img_num"
+                  width="2.4rem"
+                  height="2.4rem"
+                  fit="fill"
+                  src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
+                />
+              </div>
+              <div class="user_title">{{ item.username }}</div>
+              <div class="user_date">{{ item.createtime }}</div>
             </div>
-            <div class="user_title">{{item.username}}</div>
-            <div class="user_date">{{item.createtime}}</div>
-          </div>
-          <div class="order_content">
-            <div class="content_item">
-              {{item.content}}
+            <div class="order_content">
+              <div class="content_item">
+                {{ item.content }}
+              </div>
             </div>
           </div>
         </div>
-      
-      </div>
-
       </van-cell>
       <!-- <van-back-top /> -->
 
@@ -153,7 +151,7 @@
             ￥<span style="font-size: 1.5rem">9.90</span>元/月
           </div>
           <div class="bottom_btn">
-            <van-button type="warning" size="small">购买</van-button>
+            <van-button type="warning" @click="order" size="small">购买</van-button>
           </div>
         </div>
       </van-sticky>
@@ -163,7 +161,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { hotlist } from "@api/order/order";
+import wx from "weixin-js-sdk";
+import { hotlist, getOrders } from "@api/order/order";
 import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button } from "vant";
 export default defineComponent({
   components: {
@@ -176,20 +175,85 @@ export default defineComponent({
   },
   data() {
     return {
-      partlist :[]
+      partlist: [],
     };
   },
   mounted() {
+    // this.getUrl("code");
     this.getPartList();
   },
   methods: {
     getPartList() {
+      //获取列表信息
       let params = {
         userid: 2,
       };
       hotlist(params).then((res) => {
         console.log(res);
-        this.$data.partlist = res.data
+        this.$data.partlist = res.data;
+      });
+    },
+    getUrl(code) {
+      //获取地址的code
+      let geturl = window.location.href;
+      let getqyinfo = geturl.split("?")[1];
+      let getqys = getqyinfo.split("&");
+      let obj = {}; //创建空对象，接收截取的参数
+      for (let i = 0; i < getqys.length; i++) {
+        console.log(i);
+        let item = getqys[i].split("=");
+        let key = item[0];
+        let value = item[1];
+        obj[key] = value;
+      }
+      console.log(obj[code]);
+      return obj[code];
+    },
+    getCode() {
+      //微信网页授权返回code
+      let UrlEncode = encodeURIComponent("https://www.sourcandy.cn/index.html");
+      let wx_url =
+        "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc055add4d2d04367&redirect_uri=" +
+        UrlEncode +
+        "&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+      window.location.href = wx_url;
+    },
+    getOpenid() {
+      return "ohIpE49xoBMpAZn45N9QkdVrojhk";
+    },
+    order() {
+      let param = {
+        openid: this.getOpenid(),
+        amount: 1,
+      };
+      getOrders(param).then((res) => {
+        this.onBridgeReady(res.data);
+      });
+    },
+    onBridgeReady(e) {
+      wx.config({
+        debug: true, // 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
+        appId: 'wxc055add4d2d04367', // 必填，公众号的唯一标识
+        timeStamp: e.timeStamp, // 必填，生成签名的时间戳
+        nonceStr:  e.nonceStr, // 必填，生成签名的随机串
+        signature: '',// 必填，签名
+        jsApiList: ["chooseWXPay"] // 必填，需要使用的 JS 接口列表
+      });
+      wx.chooseWXPay({
+        timeStamp: e.timestamp, // 支付签名时间戳，注意微信 jssdk 中的所有使用 timestamp 字段均为小写。但最新版的支付后台生成签名使用的 timeStamp 字段名需大写其中的 S 字符
+        nonceStr: e.nonceStr, // 支付签名随机串，不长于 32 位
+        package: e.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+        signType: e.signType, // 微信支付V3的传入 RSA ,微信支付V2的传入格式与V2统一下单的签名格式保持一致
+        paySign: e.paySign, // 支付签名
+        success: function (res) {
+          // 支付成功后的回调函数
+          console.log(res);
+          console.log("成功");
+        },
+        fail: function (res1) {
+          console.log(res1);
+          console.log("失败");
+        },
       });
     },
   },
