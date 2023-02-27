@@ -7,6 +7,14 @@ export const getOrders=(params)=>{
     params
   })
 };
+//sign
+export const getSign=(params)=>{
+  return axiosHttp({
+    method:'get',
+    url:'index/getSignS',
+    params
+  })
+};
 //热门
 export const hotlist=(data)=>{
   return axiosHttp({

@@ -24,15 +24,15 @@ const routes: Array<RouteRecordRaw> = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
-
 // const router = createRouter({
-//   history: createWebHashHistory(),
+//   history: createWebHistory(process.env.BASE_URL),
 //   routes
 // })
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes
+})
 
 
 export default router
