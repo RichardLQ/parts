@@ -20,7 +20,7 @@ export default defineComponent({
   methods: {
     getCode() {         //微信网页授权返回code
       let UrlEncode  = encodeURIComponent("https://www.sourcandy.cn/totoro/#/order")
-      let wx_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc055add4d2d04367&redirect_uri='+UrlEncode+'&response_type=code&scope=snsapi_userinfo#wechat_redirect'
+      let wx_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxde2cf49d6527e57a&redirect_uri='+UrlEncode+'&response_type=code&scope=snsapi_userinfo#wechat_redirect'
       window.location.href = wx_url;
     },
   },

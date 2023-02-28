@@ -7,6 +7,14 @@ export const getOrders=(params)=>{
     params
   })
 };
+//openid
+export const getOpeind=(params)=>{
+  return axiosHttp({
+    method:'get',
+    url:'index/getOpenid',
+    params
+  })
+};
 //sign
 export const getSign=(params)=>{
   return axiosHttp({
