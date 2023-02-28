@@ -163,7 +163,7 @@
 import { defineComponent } from "vue";
 import wx from "weixin-js-sdk";
 import { hotlist, getOrders,getSign,getOpeind } from "@api/order/order";
-import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button } from "vant";
+import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button,showToast } from "vant";
 export default defineComponent({
   components: {
     [Icon.name]: Icon,
@@ -245,12 +245,18 @@ export default defineComponent({
           paySign: res.data.paySign, // 支付签名
           success: function (res) {
             // 支付成功后的回调函数
-            console.log(res);
             console.log("成功");
+            showToast({
+              message: '支付成功',
+              icon: 'success',
+            });
           },
           fail: function (res1) {
-            console.log(res1);
             console.log("失败");
+            showToast({
+              message: '支付失败',
+              icon: 'cross',
+            });
           },
         });
       });
