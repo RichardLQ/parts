@@ -151,7 +151,7 @@
             ￥<span style="font-size: 1.5rem">9.90</span>元/月
           </div>
           <div class="bottom_btn">
-            <van-button type="warning" @click="order" size="small">购买</van-button>
+            <van-button type="warning" @click="onBridgeReady" size="small">购买</van-button>
           </div>
         </div>
       </van-sticky>
@@ -162,7 +162,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import wx from "weixin-js-sdk";
-import { hotlist, getOrders,getSign,getOpeind } from "@api/order/order";
+import { hotlist, getOrders,getSign,getOpeind,payOrders } from "@api/order/order";
 import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button,showToast } from "vant";
 export default defineComponent({
   components: {
@@ -180,6 +180,7 @@ export default defineComponent({
   },
   mounted() {
     this.getCode()
+    this.getConfig()
     this.getPartList();
   },
   methods: {
@@ -199,60 +200,57 @@ export default defineComponent({
       if (r != null) return unescape(r[2]);
       return null;
     },
-    getCode() {         //微信网页授权返回code
+    getCode() {         //微信网页授权返回code和openid
       let wx_code = this.getUrl("code");
       let redirect = encodeURIComponent(window.location.href);
      if (!wx_code) {
       let wx_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxde2cf49d6527e57a&redirect_uri='+redirect+'&response_type=code&scope=snsapi_userinfo#wechat_redirect'
       window.location.href = wx_url;
      }else{
-        this.getOpenid(wx_code)
-     }
-    },
-    getOpenid(code) {
-      getOpeind({code:code,type:2}).then((res)=>{
+        getOpeind({code:wx_code,type:2}).then((res)=>{
         localStorage.setItem("openid",res.data);
         return res.data
       })
+     }
     },
-    order() {
-       getSign({url:"https://www.sourcandy.cn/totoro/#/order"}).then((res) => {
-        console.log(res)
-        this.onBridgeReady(res);
+    //获取js-sdk配置信息(初始化)
+    async getConfig() {
+      await getSign({url:window.location.href}).then((res) => {
+        console.log("config初始化：",res)
+        wx.config({
+          debug: false, 
+          appId: res.data.appId, 
+          timeStamp: res.data.timestamp, 
+          nonceStr:  res.data.nonceStr, 
+          signature: res.data.sign,
+          jsApiList: ["chooseWXPay"] 
         });
-      
+        // this.onBridgeReady(res);
+        });
     },
-    onBridgeReady(e) {
-      wx.config({
-        debug: false, // 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
-        appId: e.appId, // 必填，公众号的唯一标识
-        timeStamp: e.timestamp, // 必填，生成签名的时间戳
-        nonceStr:  e.nonceStr, // 必填，生成签名的随机串
-        signature: e.sign,// 必填，签名
-        jsApiList: ["chooseWXPay"] // 必填，需要使用的 JS 接口列表
-      });
+    //支付
+    onBridgeReady() {
       let param = {
         openid: localStorage.getItem("openid"),
         amount: 1,
+        type:2
       };
       getOrders(param).then((res) => {
-        console.log(res)
           wx.chooseWXPay({
-          timestamp: res.data.timeStamp, // 支付签名时间戳，注意微信 jssdk 中的所有使用 timestamp 字段均为小写。但最新版的支付后台生成签名使用的 timeStamp 字段名需大写其中的 S 字符
-          nonceStr: res.data.nonceStr, // 支付签名随机串，不长于 32 位
-          package: res.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-          signType: res.data.signType, // 微信支付V3的传入 RSA ,微信支付V2的传入格式与V2统一下单的签名格式保持一致
-          paySign: res.data.paySign, // 支付签名
+          timestamp: res.data.timeStamp, 
+          nonceStr: res.data.nonceStr,
+          package: res.data.package, 
+          signType: res.data.signType, 
+          paySign: res.data.paySign, 
           success: function (res) {
-            // 支付成功后的回调函数
-            console.log("成功");
+            payOrders({rid:res.rid,status:2})
             showToast({
               message: '支付成功',
               icon: 'success',
             });
           },
           fail: function (res1) {
-            console.log("失败");
+            payOrders({rid:res1.rid,status:1})
             showToast({
               message: '支付失败',
               icon: 'cross',

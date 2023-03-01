@@ -1,5 +1,5 @@
 import axiosHttp from '@api/https.js'
-//支付
+//创建订单
 export const getOrders=(params)=>{
   return axiosHttp({
     method:'get',
@@ -7,6 +7,17 @@ export const getOrders=(params)=>{
     params
   })
 };
+
+
+export const payOrders=(params)=>{
+  return axiosHttp({
+    method:'get',
+    url:'index/payStatus',
+    params
+  })
+};
+
+
 //openid
 export const getOpeind=(params)=>{
   return axiosHttp({
@@ -19,7 +30,7 @@ export const getOpeind=(params)=>{
 export const getSign=(params)=>{
   return axiosHttp({
     method:'get',
-    url:'index/getSignS',
+    url:'index/getSign',
     params
   })
 };
