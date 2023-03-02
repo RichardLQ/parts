@@ -3,7 +3,7 @@
     <div class="order_header">
       <div class="header_img">
         <img
-          src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
+          src="~@/assets/img/header.jpg"
           alt=""
         />
       </div>
@@ -38,7 +38,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            :src="require('@src/assets/img/cat1.jpg')"
           />
           <van-image
             round
@@ -46,7 +46,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat1.jpg"
           />
           <van-image
             round
@@ -54,7 +54,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="@/assets/img/cat1.jpg"
           />
           <van-image
             round
@@ -62,7 +62,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat.jpeg"
           />
           <van-image
             round
@@ -70,7 +70,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat.jpeg"
           />
           <van-image
             round
@@ -78,7 +78,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat.jpeg"
           />
           <van-image
             round
@@ -86,7 +86,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat.jpeg"
           />
           <van-image
             round
@@ -94,7 +94,7 @@
             width="1.8rem"
             height="1.8rem"
             fit="fill"
-            src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+            src="~@/assets/img/cat.jpeg"
           />
           <van-icon
             class="img_num"
@@ -129,7 +129,7 @@
                   width="2.4rem"
                   height="2.4rem"
                   fit="fill"
-                  src="https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg"
+                  src="@/assets/img/header.jpg"
                 />
               </div>
               <div class="user_title">{{ item.username }}</div>
@@ -179,8 +179,8 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.getCode()
-    this.getConfig()
+    //this.getCode()
+    //this.getConfig()
     this.getPartList();
   },
   methods: {
@@ -223,9 +223,20 @@ export default defineComponent({
           timeStamp: res.data.timestamp, 
           nonceStr:  res.data.nonceStr, 
           signature: res.data.sign,
-          jsApiList: ["chooseWXPay"] 
+          jsApiList: ["chooseWXPay","updateAppMessageShareData"] 
         });
-        // this.onBridgeReady(res);
+        wx.ready(function () {
+          // 分享给朋友
+          wx.updateAppMessageShareData({ 
+            title: '龙猫兼职社区', // 分享标题
+            desc: '帮助更多人找到兼职信息，每天都会实时分享深圳优质兼职，也可在社群上发布兼职信息，进入会员社群后可看到所有联系方式噢OVO', // 分享描述
+            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
+            imgUrl: 'https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg', // 分享图标
+            success: function () {
+              // 设置成功
+            }
+          })
+        })
         });
     },
     //支付
@@ -236,6 +247,7 @@ export default defineComponent({
         type:2
       };
       getOrders(param).then((res) => {
+        wx.ready(function () {
           wx.chooseWXPay({
           timestamp: res.data.timeStamp, 
           nonceStr: res.data.nonceStr,
@@ -257,6 +269,7 @@ export default defineComponent({
             });
           },
         });
+        })
       });
       
     },

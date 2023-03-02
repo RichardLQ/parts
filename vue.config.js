@@ -19,6 +19,7 @@ module.exports = {
     config.resolve.alias // 添加别名
             .set('@', resolve('src'))
             .set('@views', resolve('./src/views'))
+            .set('@assets', resolve('./src/assets'))
             .set('@api', resolve('./src/requests'));
   },
   productionSourceMap: true,

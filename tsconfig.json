@@ -25,6 +25,9 @@
       "@views/*": [
         "src/views/*"
       ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
     },
     "lib": [
       "esnext",

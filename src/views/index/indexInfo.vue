@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    测试
+    首页
   </div>
 </template>
 
