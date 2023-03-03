@@ -144,17 +144,25 @@
         </div>
       </van-cell>
       <!-- <van-back-top /> -->
-
-      <van-sticky :offset-bottom="0" position="bottom">
-        <div class="order_bottom">
-          <div class="bottom_content">
-            ￥<span style="font-size: 1.5rem">9.90</span>元/月
+      <div v-if="isBuy">
+        <van-tabbar v-model="active">
+          <van-tabbar-item  name="home" icon="guide-o">龙猫社群</van-tabbar-item>
+          <van-tabbar-item name="my" icon="contact">我的</van-tabbar-item>
+        </van-tabbar>
+      </div>
+      <div v-else>
+        <van-sticky :offset-bottom="0" position="bottom">
+          <div class="order_bottom">
+            <div class="bottom_content">
+              ￥<span style="font-size: 1.5rem">9.90</span>元/月
+            </div>
+            <div class="bottom_btn">
+              <van-button type="warning" @click="onBridgeReady" size="small">购买</van-button>
+            </div>
           </div>
-          <div class="bottom_btn">
-            <van-button type="warning" @click="onBridgeReady" size="small">购买</van-button>
-          </div>
-        </div>
-      </van-sticky>
+        </van-sticky>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -163,7 +171,8 @@
 import { defineComponent } from "vue";
 import wx from "weixin-js-sdk";
 import { hotlist, getOrders,getSign,getOpeind,payOrders } from "@api/order/order";
-import { Icon, Divider, Image as VanImage, BackTop, Sticky, Button,showToast } from "vant";
+import { Icon, Divider, Image as VanImage, BackTop, 
+Sticky, Button,showToast,Tabbar, TabbarItem } from "vant";
 export default defineComponent({
   components: {
     [Icon.name]: Icon,
@@ -172,10 +181,13 @@ export default defineComponent({
     [BackTop.name]: BackTop,
     [Sticky.name]: Sticky,
     [Button.name]: Button,
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem,
   },
   data() {
     return {
       partlist: [],
+      isBuy : false,
     };
   },
   mounted() {
@@ -184,6 +196,9 @@ export default defineComponent({
     this.getPartList();
   },
   methods: {
+    goTo(name){
+      this.$router.push('/'+name);
+    },
     getPartList() {
       //获取列表信息
       let params = {
@@ -241,36 +256,38 @@ export default defineComponent({
     },
     //支付
     onBridgeReady() {
-      let param = {
-        openid: localStorage.getItem("openid"),
-        amount: 1,
-        type:2
-      };
-      getOrders(param).then((res) => {
-        wx.ready(function () {
-          wx.chooseWXPay({
-          timestamp: res.data.timeStamp, 
-          nonceStr: res.data.nonceStr,
-          package: res.data.package, 
-          signType: res.data.signType, 
-          paySign: res.data.paySign, 
-          success: function (res) {
-            payOrders({rid:res.rid,status:2})
-            showToast({
-              message: '支付成功',
-              icon: 'success',
-            });
-          },
-          fail: function (res1) {
-            payOrders({rid:res1.rid,status:1})
-            showToast({
-              message: '支付失败',
-              icon: 'cross',
-            });
-          },
-        });
-        })
-      });
+      this.$data.isBuy = true
+      return
+      // let param = {
+      //   openid: localStorage.getItem("openid"),
+      //   amount: 1,
+      //   type:2
+      // };
+      // getOrders(param).then((res) => {
+      //   wx.ready(function () {
+      //     wx.chooseWXPay({
+      //     timestamp: res.data.timeStamp, 
+      //     nonceStr: res.data.nonceStr,
+      //     package: res.data.package, 
+      //     signType: res.data.signType, 
+      //     paySign: res.data.paySign, 
+      //     success: function (res) {
+      //       payOrders({rid:res.rid,status:2})
+      //       showToast({
+      //         message: '支付成功',
+      //         icon: 'success',
+      //       });
+      //     },
+      //     fail: function (res1) {
+      //       payOrders({rid:res1.rid,status:1})
+      //       showToast({
+      //         message: '支付失败',
+      //         icon: 'cross',
+      //       });
+      //     },
+      //   });
+      //   })
+      // });
       
     },
   },
