@@ -179,13 +179,10 @@ export default defineComponent({
     };
   },
   mounted() {
-    //this.getCode()
-    //this.getConfig()
-    this.getPartList();
+      this.getPartList()
   },
   methods: {
-    getPartList() {
-      //获取列表信息
+   getPartList() {
       let params = {
         userid: 2,
       };
@@ -193,85 +190,6 @@ export default defineComponent({
         console.log(res);
         this.$data.partlist = res.data;
       });
-    },
-    getUrl(name) {
-      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null) return unescape(r[2]);
-      return null;
-    },
-    getCode() {         //微信网页授权返回code和openid
-      let wx_code = this.getUrl("code");
-      let redirect = encodeURIComponent(window.location.href);
-     if (!wx_code) {
-      let wx_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxde2cf49d6527e57a&redirect_uri='+redirect+'&response_type=code&scope=snsapi_userinfo#wechat_redirect'
-      window.location.href = wx_url;
-     }else{
-        getOpeind({code:wx_code,type:2}).then((res)=>{
-        localStorage.setItem("openid",res.data);
-        return res.data
-      })
-     }
-    },
-    //获取js-sdk配置信息(初始化)
-    async getConfig() {
-      await getSign({url:window.location.href}).then((res) => {
-        console.log("config初始化：",res)
-        wx.config({
-          debug: false, 
-          appId: res.data.appId, 
-          timeStamp: res.data.timestamp, 
-          nonceStr:  res.data.nonceStr, 
-          signature: res.data.sign,
-          jsApiList: ["chooseWXPay","updateAppMessageShareData"] 
-        });
-        wx.ready(function () {
-          // 分享给朋友
-          wx.updateAppMessageShareData({ 
-            title: '龙猫兼职社区', // 分享标题
-            desc: '帮助更多人找到兼职信息，每天都会实时分享深圳优质兼职，也可在社群上发布兼职信息，进入会员社群后可看到所有联系方式噢OVO', // 分享描述
-            link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致
-            imgUrl: 'https://cdn.sourcandy.cn/totoro/9c43a1c0481df21eba0ea426b640737d_1.jpg', // 分享图标
-            success: function () {
-              // 设置成功
-            }
-          })
-        })
-        });
-    },
-    //支付
-    onBridgeReady() {
-      let param = {
-        openid: localStorage.getItem("openid"),
-        amount: 1,
-        type:2
-      };
-      getOrders(param).then((res) => {
-        wx.ready(function () {
-          wx.chooseWXPay({
-          timestamp: res.data.timeStamp, 
-          nonceStr: res.data.nonceStr,
-          package: res.data.package, 
-          signType: res.data.signType, 
-          paySign: res.data.paySign, 
-          success: function (res) {
-            payOrders({rid:res.rid,status:2})
-            showToast({
-              message: '支付成功',
-              icon: 'success',
-            });
-          },
-          fail: function (res1) {
-            payOrders({rid:res1.rid,status:1})
-            showToast({
-              message: '支付失败',
-              icon: 'cross',
-            });
-          },
-        });
-        })
-      });
-      
     },
   },
 });
