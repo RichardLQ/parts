@@ -147,7 +147,7 @@
       <div v-if="isBuy">
         <van-tabbar v-model="active">
           <van-tabbar-item  name="home" icon="guide-o">龙猫社群</van-tabbar-item>
-          <van-tabbar-item name="my" icon="contact">我的</van-tabbar-item>
+          <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
         </van-tabbar>
       </div>
       <div v-else>
@@ -187,7 +187,7 @@ export default defineComponent({
   data() {
     return {
       partlist: [],
-      isBuy : false,
+      isBuy : true,
     };
   },
   mounted() {

@@ -1,171 +1,114 @@
 <template>
-  <div>
-        <van-tabbar v-model="active">
-          <van-tabbar-item  name="home" icon="guide-o"><router-link to='/order'>龙猫社群</router-link></van-tabbar-item>
-          <van-tabbar-item name="my" icon="contact"><router-link to='/my'>我的</router-link></van-tabbar-item>
-        <router-view/>
-        </van-tabbar>
+<div class="my">
+    <div class="my_header">
+        <van-space align="center">
+            <div class="header_img">
+                <van-image round width="4.5rem" height="4.5rem" fit="cover" :src="userInfo.address" />
+            </div>
+            <div class="header_name">{{userInfo.username}}</div>
+            <div class="header_uid">Uid:<span style="font-weight:600">{{userInfo.id}}</span></div>
+        </van-space>
+    </div>
+    <div class="my_vip">
+        <van-space :align="baseline">
+            <span style="font-weight:600">会员到期</span>：<span style="color:red">{{userInfo.cuttime}}</span>
+        </van-space>
+    </div>
 
-  </div>
+    <div class="my_vip">
+        <van-space :align="baseline" @click="goTo('release')">
+            <span style="font-weight:600" >发布兼职</span>
+        </van-space>
+    </div>
+    <div class="my_vip">
+        <van-space :align="baseline" @click="goTo('order')">
+            <span style="font-weight:600">返回首页</span>
+        </van-space>
+    </div>
+    <div class="my_bottom">
+        <div class="bottom_dsc" >粤ICP备124353445号</div>
+    </div>
+    <van-tabbar v-model="active">
+        <van-tabbar-item name="home" @click="goTo('order')" icon="guide-o">龙猫社群</van-tabbar-item>
+        <van-tabbar-item name="my" icon="contact">我的</van-tabbar-item>
+    </van-tabbar>
+
+</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Icon, Tabbar, TabbarItem } from "vant";
+import { getLogin} from "@api/my/my";
+import {
+    defineComponent,
+} from "vue";
+import {
+    Icon,
+    Tabbar,
+    TabbarItem,
+    Space,
+    Image as VanImage
+} from "vant";
 export default defineComponent({
-  components: {
-    [Icon.name]: Icon,
-    [Tabbar.name]: Tabbar,
-    [TabbarItem.name]: TabbarItem,
+    components: {
+        [Icon.name]: Icon,
+        [Tabbar.name]: Tabbar,
+        [TabbarItem.name]: TabbarItem,
+        [Space.name]: Space,
+        [VanImage.name]: VanImage,
+    },
+    data() {
+        return {
+            userInfo : {}
+        };
+    },
+     mounted() {
+    this.getLoginInfo();
   },
-  data() {
-    return {
-      partlist: [],
-      isBuy : false,
-    };
-  },
-  mounted() {
-    //this.getCode()
-    //this.getConfig()
-  },
-  methods: {
-   
-    
-  },
+    methods: {
+        goTo(name) {
+            this.$router.push('/' + name);
+        },
+        getLoginInfo(){
+            let openid = "oBzet53gPZSisPu4XgCWNCn8pm68"
+            getLogin({openid:openid}).then((res) => {
+                this.$data.userInfo = res.data
+            });
+        }
+
+    },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style lang="less" scoped>
-.title_span {
-  border: 1px solid #07c160;
-  margin-right: 0.2rem;
-}
-.order {
-  background-color: #f3f3f3;
-  .order_header {
-    padding: 1rem 1rem 0.1rem 1rem;
-    background-color: white;
-    display: flex;
-    .header_img {
-      flex: 1;
-      img {
-        width: 100%;
+.my {
+    background-color: #f3f3f3;
+    height: 100%;
+    .my_header {
+        padding: 1rem 1rem 0.1rem 1rem;
+        background-color: white;
+        .header_name{
+          font-weight: 700;
+        }
+        .header_uid{
+          float: right;
+          margin-right: 0;
+        }
+    }
+
+    .my_vip {
+        background-color: white;
+        margin-top: .4rem;
+        padding: .5rem 1rem .5rem 1rem;
+    }
+    .my_bottom {
+      .bottom_dsc{
+        text-align: center;
+        margin-top: .3rem;
+        font-size: .4rem;
+        color: #bbbbbb;
       }
     }
-    .header_title {
-      flex: 2;
-      .title_title {
-        font-weight: 800;
-        font-size: 1.5rem;
-      }
-      .title_middle {
-        margin-top: 0.2rem;
-        font-weight: 300;
-      }
-      .title_date {
-        margin-top: 0.2rem;
-      }
-    }
-  }
-  .order_users,
-  order_topic {
-    padding: 1rem 1rem 0.1rem 1rem;
-    background-color: white;
-    padding-top: 0.6rem;
-    .users_title {
-      span {
-        color: #07c160;
-      }
-    }
-    .users_img {
-      padding-top: 0.4rem;
-      .img_num {
-        margin-left: 0.7rem;
-      }
-    }
-  }
-  .order_desc {
-    padding: 1rem 1rem 0.1rem 1rem;
-    background-color: white;
-    .van-divider {
-      margin: 1rem 0 0.3rem 0;
-    }
-    .desc_title {
-      padding-top: 0.5rem;
-      font-weight: 700;
-    }
-    .desc_content {
-      padding-bottom: 0.5rem;
-    }
-  }
-  .order_topic {
-    padding-top: 0.4rem;
-    .topic_title {
-      padding: 1rem 1rem 0;
-      background-color: white;
-      border-bottom: 3px solid #f3f3f3;
-      .desc_title {
-        padding-bottom: 0.8rem;
-      }
-    }
-    .topic_user {
-      padding: 1rem 1rem 0.1rem 1rem;
-      .user_img {
-        flex: 1;
-      }
-      padding-top: 1rem;
-      background-color: white;
-      display: flex;
-      .user_title,
-      .user_date {
-        margin-top: 0.7rem;
-        vertical-align: bottom;
-        margin-left: 0.6rem;
-      }
-      .user_title {
-        color: #f09b4a;
-      }
-      .user_date {
-        flex: 6;
-        text-align: right;
-        font-size: 0.6rem;
-        color: #c8c8c8;
-      }
-    }
-  }
-  .order_content {
-    padding: 1rem 1rem 0.1rem 1rem;
-    background-color: white;
-    padding-top: 1rem;
-    padding-bottom: 0.1rem;
-    margin-bottom: 0.6rem;
-    .content_item {
-      padding: 0 0.2rem 0.2rem;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-    }
-  }
-  .order_bottom {
-    display: flex;
-    padding: 0.5rem 0.8rem 0.5rem 0.8rem;
-    border: 3px solid #f3f3f3;
-    background-color: white;
-    .bottom_content {
-      flex: 1;
-      color: #ff976a;
-    }
-    .bottom_btn {
-      float: right;
-      width: 7rem;
-      .van-button--small {
-        width: 100%;
-      }
-    }
-  }
 }
 </style>
