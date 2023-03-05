@@ -17,7 +17,7 @@
 
     <div class="my_vip">
         <van-space :align="baseline" @click="goTo('release')">
-            <span style="font-weight:600" >发布兼职</span>
+            <span style="font-weight:600">发布兼职</span>
         </van-space>
     </div>
     <div class="my_vip">
@@ -26,7 +26,7 @@
         </van-space>
     </div>
     <div class="my_bottom">
-        <div class="bottom_dsc" >粤ICP备124353445号</div>
+        <div class="bottom_dsc">粤ICP备124353445号</div>
     </div>
     <van-tabbar v-model="active">
         <van-tabbar-item name="home" @click="goTo('order')" icon="guide-o">龙猫社群</van-tabbar-item>
@@ -37,7 +37,10 @@
 </template>
 
 <script lang="ts">
-import { getLogin} from "@api/my/my";
+import {
+    getLogin
+} from "@api/my/my";
+import wx from "@api/wx";
 import {
     defineComponent,
 } from "vue";
@@ -58,19 +61,24 @@ export default defineComponent({
     },
     data() {
         return {
-            userInfo : {}
+            userInfo: {}
         };
     },
-     mounted() {
-    this.getLoginInfo();
-  },
+    mounted() {
+        this.getLoginInfo();
+    },
     methods: {
         goTo(name) {
             this.$router.push('/' + name);
         },
-        getLoginInfo(){
-            let openid = "oBzet53gPZSisPu4XgCWNCn8pm68"
-            getLogin({openid:openid}).then((res) => {
+        getLoginInfo() {
+            let openid = localStorage.getItem("openid")
+            if (openid) {
+                wx.getCode()
+            }
+            getLogin({
+                openid: openid
+            }).then((res) => {
                 this.$data.userInfo = res.data
             });
         }
@@ -85,15 +93,18 @@ export default defineComponent({
 .my {
     background-color: #f3f3f3;
     height: 100%;
+
     .my_header {
         padding: 1rem 1rem 0.1rem 1rem;
         background-color: white;
-        .header_name{
-          font-weight: 700;
+
+        .header_name {
+            font-weight: 700;
         }
-        .header_uid{
-          float: right;
-          margin-right: 0;
+
+        .header_uid {
+            float: right;
+            margin-right: 0;
         }
     }
 
@@ -102,13 +113,14 @@ export default defineComponent({
         margin-top: .4rem;
         padding: .5rem 1rem .5rem 1rem;
     }
+
     .my_bottom {
-      .bottom_dsc{
-        text-align: center;
-        margin-top: .3rem;
-        font-size: .4rem;
-        color: #bbbbbb;
-      }
+        .bottom_dsc {
+            text-align: center;
+            margin-top: .3rem;
+            font-size: .4rem;
+            color: #bbbbbb;
+        }
     }
 }
 </style>

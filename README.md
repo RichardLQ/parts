@@ -33,6 +33,8 @@ https://vant-contrib.gitee.io/vant/#/zh-CN
 ### vue脚手架
 https://cli.vuejs.org/zh/guide/creating-a-project.html
 
+### 微信js-sdk封装
+https://blog.csdn.net/qq_42390692/article/details/126099458
 ### nodejs版本(18.4)
 
 ### 环境问题
