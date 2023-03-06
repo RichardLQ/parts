@@ -45,7 +45,6 @@
         <div class="topic_title">
             <div class="desc_title"><span class="title_span"></span> 话题预览</div>
         </div>
-
         <van-cell class="order_container">
             <div v-for="(item, index) in partlist" :key="index">
                 <div class="order_item">
@@ -64,10 +63,10 @@
                 </div>
             </div>
         </van-cell>
-        
 
+        
         <!-- <van-back-top /> -->
-        <div v-if="isBuy">
+        <div v-if="$store.state.isBuy">
             <van-tabbar v-model="active">
                 <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
                 <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
@@ -97,10 +96,7 @@ import {
 import wx from "@api/wx";
 import {
     hotlist,
-    getOrders,
-    getSign,
-    getOpeind,
-    payOrders
+    getOrders
 } from "@api/order/order";
 import {
     Icon,
@@ -113,6 +109,9 @@ import {
     Tabbar,
     TabbarItem
 } from "vant";
+import {
+    useStore
+} from 'vuex'
 export default defineComponent({
     components: {
         [Icon.name]: Icon,
@@ -128,13 +127,16 @@ export default defineComponent({
         return {
             partlist: [],
             isBuy: false,
-            page:1,
-            pageSize:10,
-            finished:false
+            page: 1,
+            pageSize: 10,
+            finished: false
         };
     },
     mounted() {
-        // wx.getCode()
+        let openid = localStorage.getItem("openid")
+        if (!openid) {
+            wx.getCode()
+        }
         this.getPartList();
     },
     methods: {
@@ -145,21 +147,24 @@ export default defineComponent({
             //获取列表信息
             let params = {
                 openid: localStorage.getItem("openid"),
-                page:this.$data.page,
-                pageSize:this.$data.pageSize,
+                page: this.$data.page,
+                pageSize: this.$data.pageSize,
             };
+            const store = useStore()
             hotlist(params).then((res) => {
-                this.$data.isBuy = res.data[0].isBuy
+                console.log(res.data[0].buy)
+                store.dispatch("updateIsBuy", res.data[0].buy)
                 if (res.data.length < 10) {
-                  this.$data.finished = true
+                    this.$data.finished = true
                 }
                 this.$data.partlist = res.data.concat(this.$data.partlist)
-            });
+            })
+            // this.$nextTick(function(){
+            //     this.getPartList()
+            // })
         },
         //支付
         payFor() {
-            // this.$data.isBuy = true
-            // return
             let param = {
                 openid: localStorage.getItem("openid"),
                 amount: 1,
@@ -172,24 +177,22 @@ export default defineComponent({
             })
 
         },
-
         getScroll(event) {
-                    let scrollBottom =
-                        event.target.scrollHeight -
-                        event.target.scrollTop -
-                        event.target.clientHeight;
-                    console.log(scrollBottom) // 滚动到底部的距离
-                    if ( scrollBottom < 40) { 
-                    if(!this.$data.finished){
-                      this.$data.page  = this.$data.page + 1
-                      this.getPartList()
-                    }
-                    }
-                },
+            let scrollBottom =
+                event.target.scrollHeight -
+                event.target.scrollTop -
+                event.target.clientHeight;
+            console.log(scrollBottom) // 滚动到底部的距离
+            if (scrollBottom < 40) {
+                if (!this.$data.finished) {
+                    this.$data.page = this.$data.page + 1
+                    this.getPartList()
+                }
+            }
+        }
     },
 });
 </script>
-
 
 <style lang="less" scoped>
 .title_span {
@@ -201,6 +204,7 @@ export default defineComponent({
     background-color: #f3f3f3;
     height: 100%;
     overflow-y: scroll;
+
     .order_header {
         padding: 1rem 1rem 0.1rem 1rem;
         background-color: white;
