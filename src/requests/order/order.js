@@ -38,7 +38,7 @@ export const getSign=(params)=>{
 export const hotlist=(data)=>{
   return axiosHttp({
     method:'post',
-    url:'index/hotlist',
+    url:'index/partlist',
     data,
   })
 }

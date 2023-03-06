@@ -1,5 +1,5 @@
 <template>
-<div class="order">
+<div class="order" @scroll.passive="getScroll($event)">
     <div class="order_header">
         <div class="header_img">
             <img src="~@/assets/img/header.jpg" alt="" />
@@ -64,6 +64,8 @@
                 </div>
             </div>
         </van-cell>
+        
+
         <!-- <van-back-top /> -->
         <div v-if="isBuy">
             <van-tabbar v-model="active">
@@ -126,10 +128,13 @@ export default defineComponent({
         return {
             partlist: [],
             isBuy: false,
+            page:1,
+            pageSize:10,
+            finished:false
         };
     },
     mounted() {
-        wx.getCode()
+        // wx.getCode()
         this.getPartList();
     },
     methods: {
@@ -139,29 +144,18 @@ export default defineComponent({
         getPartList() {
             //获取列表信息
             let params = {
-                userid: 2,
+                openid: localStorage.getItem("openid"),
+                page:this.$data.page,
+                pageSize:this.$data.pageSize,
             };
             hotlist(params).then((res) => {
-                console.log(res);
-                this.$data.partlist = res.data;
+                this.$data.isBuy = res.data[0].isBuy
+                if (res.data.length < 10) {
+                  this.$data.finished = true
+                }
+                this.$data.partlist = res.data.concat(this.$data.partlist)
             });
         },
-        // getUrl(name) {
-        //   var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        //   var r = window.location.search.substr(1).match(reg);
-        //   if (r != null) return unescape(r[2]);
-        //   return null;
-        // },
-        // getCode() {         //微信网页授权返回code和openid
-        //   let wx_code = this.getUrl("code");
-        //  if (!wx_code) {
-        //   wx.wxgetCode()
-        //  }else{
-        //     getOpeind({code:wx_code,type:2}).then((res)=>{
-        //     localStorage.setItem("openid",res.data);
-        //   })
-        //  }
-        // },
         //支付
         payFor() {
             // this.$data.isBuy = true
@@ -178,11 +172,24 @@ export default defineComponent({
             })
 
         },
+
+        getScroll(event) {
+                    let scrollBottom =
+                        event.target.scrollHeight -
+                        event.target.scrollTop -
+                        event.target.clientHeight;
+                    console.log(scrollBottom) // 滚动到底部的距离
+                    if ( scrollBottom < 40) { 
+                    if(!this.$data.finished){
+                      this.$data.page  = this.$data.page + 1
+                      this.getPartList()
+                    }
+                    }
+                },
     },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style lang="less" scoped>
 .title_span {
@@ -192,7 +199,8 @@ export default defineComponent({
 
 .order {
     background-color: #f3f3f3;
-
+    height: 100%;
+    overflow-y: scroll;
     .order_header {
         padding: 1rem 1rem 0.1rem 1rem;
         background-color: white;
