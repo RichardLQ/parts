@@ -4,11 +4,11 @@
         <van-form @failed="onFailed">
             <van-cell-group inset>
                 <!-- 通过 pattern 进行正则校验 -->
-                <van-field v-model="username" name="用户名" label="标题" placeholder="用户名" :rules="[{ required: true, message: '请填写用户名' }]" />
-                <van-field v-model="message" rows="8" autosize label="内容" type="textarea" maxlength="100" placeholder="请输入内容" show-word-limit />
+                <van-field v-model="title" name="标题" label="标题" placeholder="用户名" :rules="[{ required: true, message: '请填写用户名' }]" />
+                <van-field v-model="content" rows="8" autosize label="内容" type="textarea" maxlength="100" placeholder="请输入内容" show-word-limit />
             </van-cell-group>
             <div style="margin: 16px;">
-                <van-button round block type="primary" native-type="submit">
+                <van-button @click="add" round block type="primary" native-type="submit">
                     提交
                 </van-button>
             </div>
@@ -24,10 +24,14 @@ import {
     defineComponent,
 } from "vue";
 import {
+    addContent
+} from "@api/my/my";
+import {
     Form,
     Field,
     CellGroup,
-    Button
+    Button,
+    showToast
 } from "vant";
 export default defineComponent({
     components: {
@@ -37,13 +41,30 @@ export default defineComponent({
         [Button.name]: Button,
     },
     data() {
-        return {};
+        return {
+            title:"",
+            content:"",
+        };
     },
 
     methods: {
         goTo(name) {
             this.$router.push('/' + name);
         },
+        add(){
+            let params = {
+                openid: localStorage.getItem("openid"),
+                title:this.$data.title,
+                content:this.$data.content,
+            };
+            addContent(params).then((res:any) => {
+                console.log(res)
+                if (res.code == 200) {
+                    showToast('提交成功');
+                    this.$router.push('/my');
+                }
+            })
+        }
 
     },
 });

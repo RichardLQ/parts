@@ -173,6 +173,10 @@ export default defineComponent({
             getOrders(param).then((res) => {
                 wx.wxpay(res.data, function (res1) {
                     console.log(res1)
+                    showToast({
+                    message: '支付成功',
+                    icon: 'certificate',
+                    });
                 })
             })
 

@@ -8,3 +8,11 @@ export const getLogin=(params)=>{
   })
 };
 
+//热门
+export const addContent=(data)=>{
+  return axiosHttp({
+    method:'post',
+    url:'index/addpartlist',
+    data,
+  })
+}
