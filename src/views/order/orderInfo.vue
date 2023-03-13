@@ -64,8 +64,7 @@
             </div>
         </van-cell>
 
-        
-        <!-- <van-back-top /> -->
+         <van-back-top style="z-index:999" />
         <div v-if="$store.state.isBuy">
             <van-tabbar v-model="active">
                 <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
@@ -83,7 +82,7 @@
                     </div>
                 </div>
             </van-sticky>
-        </div>
+        </div><!---->
 
     </div>
 </div>
@@ -132,12 +131,17 @@ export default defineComponent({
             finished: false
         };
     },
+  
     mounted() {
-        let openid = localStorage.getItem("openid")
-        if (!openid) {
-            wx.getCode()
-        }
+        window.addEventListener("scroll", this.getScroll,true);
+        // let openid = localStorage.getItem("openid")
+        // if (!openid) {
+        //     wx.getCode()
+        // }
         this.getPartList();
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.getScroll,true);
     },
     methods: {
         goTo(name) {
@@ -182,12 +186,7 @@ export default defineComponent({
 
         },
         getScroll(event) {
-            let scrollBottom =
-                event.target.scrollHeight -
-                event.target.scrollTop -
-                event.target.clientHeight;
-            console.log(scrollBottom) // 滚动到底部的距离
-            if (scrollBottom < 40) {
+            if (window.scrollY > 30) {
                 if (!this.$data.finished) {
                     this.$data.page = this.$data.page + 1
                     this.getPartList()
@@ -207,8 +206,7 @@ export default defineComponent({
 .order {
     background-color: #f3f3f3;
     height: 100%;
-    overflow-y: scroll;
-
+    // overflow: scroll;
     .order_header {
         padding: 1rem 1rem 0.1rem 1rem;
         background-color: white;
