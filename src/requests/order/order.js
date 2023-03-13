@@ -38,6 +38,15 @@ export const getSign=(params)=>{
 export const hotlist=(data)=>{
   return axiosHttp({
     method:'post',
+    url:'index/hotlist',
+    data,
+  })
+}
+
+//热门
+export const partlist=(data)=>{
+  return axiosHttp({
+    method:'post',
     url:'index/partlist',
     data,
   })

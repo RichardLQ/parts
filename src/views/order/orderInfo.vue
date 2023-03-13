@@ -64,27 +64,38 @@
             </div>
         </van-cell>
 
-         <van-back-top style="z-index:999" />
-        <div v-if="$store.state.isBuy">
-            <van-tabbar v-model="active">
-                <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
-                <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
-            </van-tabbar>
-        </div>
-        <div v-else>
-            <van-sticky :offset-bottom="0" position="bottom">
-                <div class="order_bottom">
-                    <div class="bottom_content">
-                        ￥<span style="font-size: 1.5rem">9.90</span>元/月
-                    </div>
-                    <div class="bottom_btn">
-                        <van-button type="warning" @click="payFor" size="small">购买</van-button>
-                    </div>
-                </div>
-            </van-sticky>
-        </div><!---->
+        <van-back-top style="z-index:999" />
 
     </div>
+
+    <div class="order_desc">
+        <div class="desc_title"><span class="title_span"></span> 用户须知</div>
+        <van-divider />
+        <div class="desc_content" style="color:#9591aa">
+            <div>1. 付费后，你仅可使用当前付款的微信账号登入后进入会员群参与互动。</div>
+            <div>2.本商品为虚拟内容服务，一经购买成功概不退款，请谨慎购买！</div>
+        </div>
+    </div>
+
+    <div v-if="$store.state.isBuy">
+        <van-tabbar v-model="active">
+            <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
+            <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
+        </van-tabbar>
+    </div>
+    <div v-else>
+        <van-sticky :offset-bottom="0" position="bottom">
+            <div class="order_bottom">
+                <div class="bottom_content">
+                    ￥<span style="font-size: 1.5rem">9.90</span>元/月
+                </div>
+                <div class="bottom_btn">
+                    <van-button type="warning" @click="payFor" size="small">购买</van-button>
+                </div>
+            </div>
+        </van-sticky>
+    </div>
+
 </div>
 </template>
 
@@ -95,7 +106,8 @@ import {
 import wx from "@api/wx";
 import {
     hotlist,
-    getOrders
+    getOrders,
+    partlist
 } from "@api/order/order";
 import {
     Icon,
@@ -111,6 +123,7 @@ import {
 import {
     useStore
 } from 'vuex'
+
 export default defineComponent({
     components: {
         [Icon.name]: Icon,
@@ -126,14 +139,15 @@ export default defineComponent({
         return {
             partlist: [],
             isBuy: false,
+            isReload: false,
             page: 1,
             pageSize: 10,
-            finished: false
+            finished: false,
+            store: useStore()
         };
     },
-  
     mounted() {
-        window.addEventListener("scroll", this.getScroll,true);
+        window.addEventListener("scroll", this.getScroll, true);
         let openid = localStorage.getItem("openid")
         if (!openid) {
             wx.getCode()
@@ -141,7 +155,7 @@ export default defineComponent({
         this.getPartList();
     },
     destroyed() {
-        window.removeEventListener("scroll", this.getScroll,true);
+        window.removeEventListener("scroll", this.getScroll, true);
     },
     methods: {
         goTo(name) {
@@ -154,18 +168,28 @@ export default defineComponent({
                 page: this.$data.page,
                 pageSize: this.$data.pageSize,
             };
-            const store = useStore()
-            hotlist(params).then((res) => {
-                if (res.data.length < 10) {
-                    this.$data.finished = true
-                }
-                console.log(res.data[0].buy)
-                store.dispatch("updateIsBuy", res.data[0].buy)
-                this.$data.partlist = res.data.concat(this.$data.partlist)
-            })
-            // this.$nextTick(function(){
-            //     this.getPartList()
-            // })
+            if (this.$data.store.state.isBuy) {
+                partlist(params).then((res) => {
+                    if (res.data.length < 10) {
+                        this.$data.finished = true
+                    }
+                    if (!this.$data.store.state.isReload) {
+                        this.$data.store.commit("updateIsBuy", {
+                            "buy": res.data[0].buy,
+                            "reload": true
+                        })
+                    }
+                    this.$data.partlist = res.data.concat(this.$data.partlist)
+                })
+            } else {
+                hotlist(params).then((res) => {
+                    this.$data.partlist = res.data
+                    this.$data.store.commit("updateIsBuy", {
+                            "buy": res.data[0].buy
+                        })
+                })
+            }
+
         },
         //支付
         payFor() {
@@ -178,20 +202,22 @@ export default defineComponent({
                 wx.wxpay(res.data, function (res1) {
                     console.log(res1)
                     showToast({
-                    message: '支付成功',
-                    icon: 'certificate',
+                        message: '支付成功',
+                        icon: 'certificate',
                     });
                 })
             })
 
         },
-        getScroll(event) {
+        getScroll() {
             if (window.scrollY > 30) {
-                console.log(this.$data.finished)
-                if (!this.$data.finished) {
-                    this.$data.page = this.$data.page + 1
-                    this.getPartList()
+                if (this.$data.store.state.isBuy) {
+                    if (!this.$data.finished) {
+                        this.$data.page = this.$data.page + 1
+                        this.getPartList()
+                    }
                 }
+
             }
         }
     },
@@ -207,6 +233,7 @@ export default defineComponent({
 .order {
     background-color: #f3f3f3;
     height: 100%;
+
     // overflow: scroll;
     .order_header {
         padding: 1rem 1rem 0.1rem 1rem;
