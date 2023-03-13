@@ -134,10 +134,10 @@ export default defineComponent({
   
     mounted() {
         window.addEventListener("scroll", this.getScroll,true);
-        // let openid = localStorage.getItem("openid")
-        // if (!openid) {
-        //     wx.getCode()
-        // }
+        let openid = localStorage.getItem("openid")
+        if (!openid) {
+            wx.getCode()
+        }
         this.getPartList();
     },
     destroyed() {
@@ -156,11 +156,11 @@ export default defineComponent({
             };
             const store = useStore()
             hotlist(params).then((res) => {
-                console.log(res.data[0].buy)
-                store.dispatch("updateIsBuy", res.data[0].buy)
                 if (res.data.length < 10) {
                     this.$data.finished = true
                 }
+                console.log(res.data[0].buy)
+                store.dispatch("updateIsBuy", res.data[0].buy)
                 this.$data.partlist = res.data.concat(this.$data.partlist)
             })
             // this.$nextTick(function(){
@@ -187,6 +187,7 @@ export default defineComponent({
         },
         getScroll(event) {
             if (window.scrollY > 30) {
+                console.log(this.$data.finished)
                 if (!this.$data.finished) {
                     this.$data.page = this.$data.page + 1
                     this.getPartList()
