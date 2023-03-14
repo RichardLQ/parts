@@ -45,8 +45,8 @@
         <div class="topic_title">
             <div class="desc_title"><span class="title_span"></span> 话题预览</div>
         </div>
-        <van-cell class="order_container">
-            <div v-for="(item, index) in partlist" :key="index">
+        <van-cell >
+               <div v-for="(item, index) in partlist" :key="index">
                 <div class="order_item">
                     <div class="topic_user">
                         <div class="user_img">
@@ -62,11 +62,15 @@
                     </div>
                 </div>
             </div>
+
+
+            
         </van-cell>
 
-        <van-back-top style="z-index:999" />
+        <van-back-top right="5vw" bottom="6.5vh" style="background-color:#ff976a !important;" />
 
     </div>
+
 
     <div class="order_desc">
         <div class="desc_title"><span class="title_span"></span> 用户须知</div>
@@ -233,7 +237,6 @@ export default defineComponent({
 .order {
     background-color: #f3f3f3;
     height: 100%;
-
     // overflow: scroll;
     .order_header {
         padding: 1rem 1rem 0.1rem 1rem;
@@ -308,7 +311,10 @@ export default defineComponent({
 
     .order_topic {
         padding-top: 0.4rem;
-
+        background-color:#f3f3f3;
+        .order_item{
+            padding-bottom:.1rem;
+        }
         .topic_title {
             padding: 1rem 1rem 0;
             background-color: white;
