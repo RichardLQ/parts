@@ -46,7 +46,7 @@
             <div class="desc_title"><span class="title_span"></span> 话题预览</div>
         </div>
         <van-cell >
-               <div v-for="(item, index) in partlist" :key="index">
+               <div v-for="(item, index) in partlist" :key="index" @click="toRelease(item)">
                 <div class="order_item">
                     <div class="topic_user">
                         <div class="user_img">
@@ -75,7 +75,7 @@
     <div class="order_desc">
         <div class="desc_title"><span class="title_span"></span> 用户须知</div>
         <van-divider />
-        <div class="desc_content" style="color:#9591aa">
+        <div class="desc_content" style="color:#9591aa;margin-bottom:5rem">
             <div>1. 付费后，你仅可使用当前付款的微信账号登入后进入会员群参与互动。</div>
             <div>2.本商品为虚拟内容服务，一经购买成功概不退款，请谨慎购买！</div>
         </div>
@@ -162,6 +162,14 @@ export default defineComponent({
         window.removeEventListener("scroll", this.getScroll, true);
     },
     methods: {
+        toRelease(e){
+            if (e.id == ""){
+                return
+            }
+
+            localStorage.setItem("userInfo",JSON.stringify(e))
+            this.$router.push('/release');
+        },
         goTo(name) {
             this.$router.push('/' + name);
         },
