@@ -168,7 +168,7 @@ export default defineComponent({
             }
 
             localStorage.setItem("userInfo",JSON.stringify(e))
-            this.$router.push('/release');
+            this.$router.push('/detail');
         },
         goTo(name) {
             this.$router.push('/' + name);

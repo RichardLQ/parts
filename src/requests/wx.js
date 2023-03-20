@@ -27,7 +27,7 @@ export default {
             getSign(data).then(res => {
                 var data = res.data
                 wx.config({
-                    debug: true,
+                    debug: false,
                     appId: data.appId,
                     timestamp: data.timeStamp,
                     nonceStr: data.nonceStr,
