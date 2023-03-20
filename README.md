@@ -41,6 +41,8 @@ https://blog.csdn.net/qq_46201146/article/details/125805058
 
 ### nodejs版本(18.4)
 
+### git地址
+git@github.com:RichardLQ/parts.git
 
 ### 环境问题
  # 报错 Error: error:0308010C:digital envelope routines::unsupported
