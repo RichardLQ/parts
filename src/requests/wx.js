@@ -158,5 +158,12 @@ export default {
 		  localStorage.setItem("openid",res.data);
 		})
 	   }
-	  }
+	  },
+      isOpenid(){
+        let isBuy = sessionStorage.getItem("isBuy")
+        if (!isBuy) {
+            window.location.href =location.origin +"/totoro/order"
+        }
+        
+      }
 }

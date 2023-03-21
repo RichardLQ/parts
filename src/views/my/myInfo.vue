@@ -29,7 +29,7 @@
         <div class="bottom_dsc">粤ICP备124353445号</div>
     </div>
     <van-tabbar v-model="active">
-        <van-tabbar-item name="home" @click="goTo('order')" icon="guide-o">龙猫社群</van-tabbar-item>
+        <van-tabbar-item name="home" @click="goTo('list')" icon="guide-o">龙猫社群</van-tabbar-item>
         <van-tabbar-item name="my" icon="contact">我的</van-tabbar-item>
     </van-tabbar>
 

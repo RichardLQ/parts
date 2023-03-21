@@ -81,13 +81,7 @@
         </div>
     </div>
 
-    <div v-if="$store.state.isBuy">
-        <van-tabbar v-model="active">
-            <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
-            <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
-        </van-tabbar>
-    </div>
-    <div v-else>
+    <div>
         <van-sticky :offset-bottom="0" position="bottom">
             <div class="order_bottom">
                 <div class="bottom_content">
@@ -146,7 +140,7 @@ export default defineComponent({
         };
     },
     mounted() {
-        localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
+        // localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
         let openid = localStorage.getItem("openid")
         if (!openid) {
             wx.getCode()

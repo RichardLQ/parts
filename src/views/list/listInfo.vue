@@ -81,25 +81,12 @@
         </div>
     </div>
 
-    <div v-if="$store.state.isBuy">
+    <div >
         <van-tabbar v-model="active">
             <van-tabbar-item name="home" icon="guide-o">龙猫社群</van-tabbar-item>
             <van-tabbar-item name="my" @click="goTo('my')" icon="contact">我的</van-tabbar-item>
         </van-tabbar>
     </div>
-    <div v-else>
-        <van-sticky :offset-bottom="0" position="bottom">
-            <div class="order_bottom">
-                <div class="bottom_content">
-                    ￥<span style="font-size: 1.5rem">9.90</span>元/月
-                </div>
-                <div class="bottom_btn">
-                    <van-button type="warning" @click="payFor" size="small">购买</van-button>
-                </div>
-            </div>
-        </van-sticky>
-    </div>
-
 </div>
 </template>
 
@@ -152,15 +139,7 @@ export default defineComponent({
     },
     mounted() {
         window.addEventListener("scroll", this.getScroll, true);
-        let openid = localStorage.getItem("openid")
-        let buys = sessionStorage.getItem("isBuy")
-        console.log(buys)
-        if (buys !== null) {
-            this.$data.isBuy = Boolean(buys)
-        }
-        // if (!openid) {
-        //     wx.getCode()
-        // }
+        wx.isOpenid()
         this.getPartList();
     },
     destroyed() {
@@ -185,29 +164,19 @@ export default defineComponent({
                 page: this.$data.page,
                 pageSize: this.$data.pageSize,
             };
-            if (this.$data.store.state.isBuy) {
-                partlist(params).then((res) => {
-                    if (res.data.length < 10) {
-                        this.$data.finished = true
-                    }
-                    if (!this.$data.store.state.isReload) {
-                        sessionStorage.setItem("isBuy",res.data[0].buy)
-                        this.$data.store.commit("updateIsBuy", {
-                            "buy": res.data[0].buy,
-                            "reload": true
-                        })
-                    }
-                    this.$data.partlist = res.data.concat(this.$data.partlist)
-                })
-            } else {
-                hotlist(params).then((res) => {
-                    this.$data.partlist = res.data
-                    sessionStorage.setItem("isBuy",res.data[0].buy)
+            partlist(params).then((res) => {
+                if (res.data.length < 10) {
+                    this.$data.finished = true
+                }
+                if (!this.$data.store.state.isReload) {
                     this.$data.store.commit("updateIsBuy", {
-                            "buy": res.data[0].buy
-                        })
-                })
-            }
+                        "buy": res.data[0].buy,
+                        "reload": true
+                    })
+                }
+                this.$data.partlist = res.data.concat(this.$data.partlist)
+            })
+        
 
         },
         //支付
