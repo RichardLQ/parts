@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory,RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 // import Order from '@views/order/orderInfo.vue'
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -13,17 +13,15 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@views/About.vue')
   },
   {
+    path: '/list',
+    name: 'List',
+    component: () => import('@views/list/listInfo.vue')
+  },
+  {
     path: '/order',
     name: 'Order',
     // component :Order,
     component: () => import('@views/order/orderInfo.vue')
-    // children: [
-    //   {
-		// 		path: 'my',
-		// 		name: 'My',
-		// 		component: () => import('@views/my/myInfo.vue'),
-		// 	},
-    // ]
   },
   {
     path: '/detail',

@@ -150,8 +150,6 @@ export default {
 	  getCode:function() {         //微信网页授权返回code和openid
 		let wx_code = this.getUrl("code");
 	   if (!wx_code) {
-        console.log("getCode")
-        console.log(window.location.href)
 		let redirect = encodeURIComponent(window.location.href);
 		let wx_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxde2cf49d6527e57a&redirect_uri='+redirect+'&response_type=code&scope=snsapi_userinfo#wechat_redirect'
       	window.location.href = wx_url;

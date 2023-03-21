@@ -43,7 +43,16 @@ export const hotlist=(data)=>{
   })
 }
 
-//热门
+export const getIsBuy=(params)=>{
+  return axiosHttp({
+    method:'get',
+    url:'index/isBuy',
+    params
+  })
+}
+
+
+//列表
 export const partlist=(data)=>{
   return axiosHttp({
     method:'post',

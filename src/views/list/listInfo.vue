@@ -109,9 +109,9 @@ import {
 } from "vue";
 import wx from "@api/wx";
 import {
-    getIsBuy,
+    hotlist,
     getOrders,
-    hotlist
+    partlist
 } from "@api/order/order";
 import {
     Icon,
@@ -142,16 +142,29 @@ export default defineComponent({
     data() {
         return {
             partlist: [],
+            isBuy: false,
+            isReload: false,
+            page: 1,
+            pageSize: 10,
+            finished: false,
             store: useStore()
         };
     },
     mounted() {
-        localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
+        window.addEventListener("scroll", this.getScroll, true);
         let openid = localStorage.getItem("openid")
-        if (!openid) {
-            wx.getCode()
+        let buys = sessionStorage.getItem("isBuy")
+        console.log(buys)
+        if (buys !== null) {
+            this.$data.isBuy = Boolean(buys)
         }
+        // if (!openid) {
+        //     wx.getCode()
+        // }
         this.getPartList();
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.getScroll, true);
     },
     methods: {
         toRelease(e){
@@ -169,19 +182,33 @@ export default defineComponent({
             //获取列表信息
             let params = {
                 openid: localStorage.getItem("openid"),
+                page: this.$data.page,
+                pageSize: this.$data.pageSize,
             };
-            getIsBuy(params).then((res) => {
-                    console.log(res)
-                sessionStorage.setItem("isBuy",res.buy)
-                if (res.buy == true){
-                   window.location.href =location.origin +"/totoro/list"
-                }else{
-                    hotlist(params).then((res1) => {
-                    this.$data.partlist = res1.data
-                    
+            if (this.$data.store.state.isBuy) {
+                partlist(params).then((res) => {
+                    if (res.data.length < 10) {
+                        this.$data.finished = true
+                    }
+                    if (!this.$data.store.state.isReload) {
+                        sessionStorage.setItem("isBuy",res.data[0].buy)
+                        this.$data.store.commit("updateIsBuy", {
+                            "buy": res.data[0].buy,
+                            "reload": true
+                        })
+                    }
+                    this.$data.partlist = res.data.concat(this.$data.partlist)
                 })
-                }
-            })
+            } else {
+                hotlist(params).then((res) => {
+                    this.$data.partlist = res.data
+                    sessionStorage.setItem("isBuy",res.data[0].buy)
+                    this.$data.store.commit("updateIsBuy", {
+                            "buy": res.data[0].buy
+                        })
+                })
+            }
+
         },
         //支付
         payFor() {
@@ -201,7 +228,17 @@ export default defineComponent({
             })
 
         },
-     
+        getScroll() {
+            if (window.scrollY > 30) {
+                if (this.$data.store.state.isBuy) {
+                    if (!this.$data.finished) {
+                        this.$data.page = this.$data.page + 1
+                        this.getPartList()
+                    }
+                }
+
+            }
+        }
     },
 });
 </script>
