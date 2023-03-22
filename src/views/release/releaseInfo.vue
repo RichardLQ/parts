@@ -8,6 +8,13 @@
                 <van-field v-model="tele" name="联系方式" label="联系方式" placeholder="联系方式" :rules="[{ required: true, message: '联系方式' }]" />
                 <van-field v-model="content" rows="8" autosize label="兼职内容" type="textarea" maxlength="100" placeholder="请输入兼职内容" show-word-limit />
             </van-cell-group>
+
+            <van-field name="uploader" label="文件上传">
+            <template #input >
+                <van-uploader v-model="value" preview-size="60" :after-read="afterRead" :max-count="9" />
+            </template>
+            </van-field>
+
             <div style="margin: 16px;">
                 <van-button @click="add" round block type="primary" native-type="submit">
                     提交
@@ -31,13 +38,14 @@ import {
     Form,
     Field,
     CellGroup,
-    Button,
+    Button,Uploader,
     showToast
 } from "vant";
 export default defineComponent({
     components: {
         [Form.name]: Form,
         [Field.name]: Field,
+        [Uploader.name]: Uploader,
         [CellGroup.name]: CellGroup,
         [Button.name]: Button,
     },
@@ -46,9 +54,15 @@ export default defineComponent({
             title:"",
             tele:"",
             content:"",
+            value:[
+      { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' },
+    ]
         };
     },
     methods: {
+        afterRead(){
+            console.log(333)
+        },
         goTo(name) {
             this.$router.push('/' + name);
         },
@@ -77,4 +91,15 @@ export default defineComponent({
 .release {
     padding: .4rem .4rem .4rem .4rem;
 }
+.preview-cover {
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+  }
 </style>
