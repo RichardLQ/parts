@@ -32,8 +32,8 @@ import {
     defineComponent,
 } from "vue";
 import {
-    addContent
-} from "@api/my/my";
+    uploadImage,addContent
+} from "@api/release/release";
 import {
     Form,
     Field,
@@ -59,9 +59,20 @@ export default defineComponent({
     ]
         };
     },
+    mounted() {
+        localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
+        },
     methods: {
-        afterRead(){
-            console.log(333)
+        afterRead(e){
+            console.log(e)
+            let params = {
+                openid: localStorage.getItem("openid"),
+                types:2,
+                file:e.file,
+            };
+            uploadImage(params).then((res:any) => {
+                console.log(res)
+            })
         },
         goTo(name) {
             this.$router.push('/' + name);
