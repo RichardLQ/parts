@@ -55,7 +55,7 @@ export default defineComponent({
             tele:"",
             content:"",
             value:[
-      { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' },
+        { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' },
     ]
         };
     },
@@ -64,10 +64,7 @@ export default defineComponent({
         },
     methods: {
         afterRead(e){
-            console.log(e)
             let params = {
-                openid: localStorage.getItem("openid"),
-                types:2,
                 file:e.file,
             };
             uploadImage(params).then((res:any) => {
