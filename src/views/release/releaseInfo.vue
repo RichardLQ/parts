@@ -89,6 +89,7 @@ export default defineComponent({
                 title:this.$data.title,
                 tele:this.$data.tele,
                 content:this.$data.content,
+                images : JSON.stringify(this.$data.value)
             };
             addContent(params).then((res:any) => {
                 console.log(res)
