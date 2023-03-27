@@ -95,7 +95,7 @@ export default defineComponent({
                 console.log(res)
                 if (res.code == 200) {
                     showToast('提交成功');
-                    this.$router.push('/my');
+                    // this.$router.push('/my');
                 }
             })
         }
