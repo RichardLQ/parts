@@ -54,22 +54,31 @@ export default defineComponent({
             title:"",
             tele:"",
             content:"",
-            value:[
-        { url: 'https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg' },
-    ]
+            value:[]
         };
     },
     mounted() {
         localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
+        let urllist = localStorage.getItem("urlList")||""
+        if (urllist) {
+            this.$data.value = JSON.parse(urllist)
+        }
         },
     methods: {
         afterRead(e){
-            let params = {
-                file:e.file,
-            };
-            uploadImage(params).then((res:any) => {
-                console.log(res)
-            })
+            let urlList  = this.$data.value
+            if (urlList.length > 0) {
+                ((urlList[urlList.length - 1]as any).status as string) = "uploading"
+                let params = {
+                    file:e.file,
+                };
+                uploadImage(params).then((res:any) => {
+                    ((urlList[urlList.length - 1] as any).status as string) = "";
+                    (urlList[urlList.length - 1] as any).url  = res.data
+                    localStorage.setItem("urlList",JSON.stringify(urlList))
+                })
+            }
+            
         },
         goTo(name) {
             this.$router.push('/' + name);
