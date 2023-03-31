@@ -140,7 +140,6 @@ export default defineComponent({
         };
     },
     mounted() {
-        // localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
         let openid = localStorage.getItem("openid")
         if (!openid) {
             wx.getCode()
@@ -149,7 +148,6 @@ export default defineComponent({
     },
     methods: {
         toRelease(e){
-            console.log(e)
             if (e.id == ""){
                 return
             }

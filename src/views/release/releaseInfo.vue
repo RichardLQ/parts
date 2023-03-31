@@ -58,7 +58,6 @@ export default defineComponent({
         };
     },
     mounted() {
-        localStorage.setItem("openid","oBzet53gPZSisPu4XgCWNCn8pm68")
         let urllist = localStorage.getItem("urlList")||""
         if (urllist) {
             this.$data.value = JSON.parse(urllist)
@@ -84,18 +83,24 @@ export default defineComponent({
             this.$router.push('/' + name);
         },
         add(){
+            let urlist: any[] = []
+            this.$data.value.forEach((data:any) => {
+                urlist.push({url:data.url})
+            })
             let params = {
                 openid: localStorage.getItem("openid"),
                 title:this.$data.title,
                 tele:this.$data.tele,
                 content:this.$data.content,
-                images : JSON.stringify(this.$data.value)
+                images : JSON.stringify(urlist)
             };
             addContent(params).then((res:any) => {
-                console.log(res)
                 if (res.code == 200) {
+                    localStorage.setItem("urlList",JSON.stringify([]))
                     showToast('提交成功');
-                    // this.$router.push('/my');
+                    this.$router.push('/my');
+                }else{
+                    showToast('提交失败');
                 }
             })
         }

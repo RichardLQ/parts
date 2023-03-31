@@ -15,12 +15,19 @@
                 </div>
                 <div class="order_content">
                     <div class="content_item">
-                        {{ users.content }}
+                        <span style="white-space:pre-wrap;">{{users.content}}</span>
                         <div v-show="$store.state.isBuy">联系方式:<span style="color:red">{{ users.tele }}</span></div>
                     </div>
                 </div>
-            </div>
+                <div class="detail_img" v-show="$store.state.isBuy">
+                    <van-grid v-for="(item, index) in users.images" :key="index">
+                           <van-image :src="item.url" />
+                    </van-grid>
+                </div>
+                <div>
 
+                </div>
+            </div>
 
         </div>
 
@@ -38,6 +45,8 @@ import {
     Field,
     CellGroup,
     Button,
+    Grid,Image as VanImage,
+    GridItem,
 } from "vant";
 export default defineComponent({
     components: {
@@ -45,19 +54,27 @@ export default defineComponent({
         [Field.name]: Field,
         [CellGroup.name]: CellGroup,
         [Button.name]: Button,
+        [Grid.name]: Grid,
+        [GridItem.name]: GridItem,
+        [VanImage.name]: VanImage,
     },
     data() {
         return {
             users: {},
         };
     },
-mounted() {
-    this.getInfo()
-},
+    mounted() {
+        this.getInfo()
+    },
     methods: {
-        getInfo(){
-            let user = localStorage.getItem("userInfo")|| ''
-             this.$data.users = JSON.parse(user)
+        getInfo() {
+            let user = localStorage.getItem("userInfo") || ''
+            let userlist = JSON.parse(user)
+            if (userlist.images!= ""){
+                userlist.images = JSON.parse(userlist.images)
+            }
+            this.$data.users = userlist
+            
         }
     },
 });
@@ -228,6 +245,10 @@ mounted() {
                 width: 100%;
             }
         }
+    }
+
+    .detail_img {
+        background-color: white;
     }
 }
 </style>

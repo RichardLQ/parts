@@ -52,7 +52,7 @@
                         <div class="user_img">
                             <van-image round class="img_num" width="2.4rem" height="2.4rem" fit="fill" :src="require('../../assets/img/header.jpg')" />
                         </div>
-                        <div class="user_title">{{ item.username }}</div>
+                        <div class="user_title">{{ item.title }}</div>
                         <div class="user_date">{{ item.createtime }}</div>
                     </div>
                     <div class="order_content">
@@ -147,7 +147,6 @@ export default defineComponent({
     },
     methods: {
         toRelease(e){
-            console.log(e)
             if (e.id == ""){
                 return
             }
