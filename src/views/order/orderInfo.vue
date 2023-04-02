@@ -179,12 +179,11 @@ export default defineComponent({
         payFor() {
             let param = {
                 openid: localStorage.getItem("openid"),
-                amount: 1,
+                amount: 990,
                 type: 2
             };
             getOrders(param).then((res) => {
                 wx.wxpay(res.data, function (res1) {
-                    console.log(res1)
                     showToast({
                         message: '支付成功',
                         icon: 'certificate',

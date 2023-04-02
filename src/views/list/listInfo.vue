@@ -45,14 +45,17 @@
         <div class="topic_title">
             <div class="desc_title"><span class="title_span"></span> 话题预览</div>
         </div>
-        <van-cell >
+        <van-loading v-show="isLoad" size="24px" style="text-align:center">加载中...</van-loading>
+        <van-cell v-show="!isLoad">
                <div v-for="(item, index) in partlist" :key="index" @click="toRelease(item)">
                 <div class="order_item">
                     <div class="topic_user">
                         <div class="user_img">
                             <van-image round class="img_num" width="2.4rem" height="2.4rem" fit="fill" :src="require('../../assets/img/header.jpg')" />
                         </div>
-                        <div class="user_title">{{ item.title }}</div>
+                        <div class="user_title">{{ item.title }}&nbsp;&nbsp;
+                        <van-tag v-show="item.hot == 2" color="#07c160" text-color="#fffff">置顶</van-tag>
+                        </div>
                         <div class="user_date">{{ item.createtime }}</div>
                     </div>
                     <div class="order_content">
@@ -97,7 +100,6 @@ import {
 import wx from "@api/wx";
 import {
     hotlist,
-    getOrders,
     partlist
 } from "@api/order/order";
 import {
@@ -105,8 +107,8 @@ import {
     Divider,
     Image as VanImage,
     BackTop,
-    Sticky,
-    Button,
+    Sticky,Loading,
+    Button,Tag,
     showToast,
     Tabbar,
     TabbarItem
@@ -119,11 +121,13 @@ export default defineComponent({
     components: {
         [Icon.name]: Icon,
         [Divider.name]: Divider,
+        [Loading.name]: Loading,
         [VanImage.name]: VanImage,
         [BackTop.name]: BackTop,
         [Sticky.name]: Sticky,
         [Button.name]: Button,
         [Tabbar.name]: Tabbar,
+        [Tag.name]: Tag,
         [TabbarItem.name]: TabbarItem,
     },
     data() {
@@ -131,6 +135,7 @@ export default defineComponent({
             partlist: [],
             isBuy: false,
             isReload: false,
+            isLoad:true,
             page: 1,
             pageSize: 10,
             finished: false,
@@ -138,6 +143,7 @@ export default defineComponent({
         };
     },
     mounted() {
+        console.log(this)
         window.addEventListener("scroll", this.getScroll, true);
         wx.isOpenid()
         this.getPartList();
@@ -164,6 +170,8 @@ export default defineComponent({
                 pageSize: this.$data.pageSize,
             };
             partlist(params).then((res) => {
+                this.$data.isLoad = false
+                let partlists: any[] = []
                 if (res.data.length < 10) {
                     this.$data.finished = true
                 }
@@ -173,29 +181,14 @@ export default defineComponent({
                         "reload": true
                     })
                 }
-                this.$data.partlist = res.data.concat(this.$data.partlist)
+                res.data.forEach((data:never) => {
+                    this.$data.partlist.push(data)
+                })
             })
         
 
         },
-        //支付
-        payFor() {
-            let param = {
-                openid: localStorage.getItem("openid"),
-                amount: 1,
-                type: 2
-            };
-            getOrders(param).then((res) => {
-                wx.wxpay(res.data, function (res1) {
-                    console.log(res1)
-                    showToast({
-                        message: '支付成功',
-                        icon: 'certificate',
-                    });
-                })
-            })
-
-        },
+        
         getScroll() {
             if (window.scrollY > 30) {
                 if (this.$data.store.state.isBuy) {
