@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import {
-    defineComponent,
+    defineComponent
 } from "vue";
 import {
     uploadImage,addContent
@@ -54,7 +54,7 @@ export default defineComponent({
             title:"",
             tele:"",
             content:"",
-            value:[]
+            value:[],
         };
     },
     mounted() {

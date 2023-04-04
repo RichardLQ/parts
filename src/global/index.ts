@@ -1,5 +1,6 @@
 const globals = {
-    globalPath :"totoro"
+    globalPath :"totorov2",
+    globalAmount:990,
 }
   
   // const router = createRouter({

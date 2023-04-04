@@ -99,7 +99,7 @@
 
 <script lang="ts">
 import {
-    defineComponent
+    defineComponent,getCurrentInstance
 } from "vue";
 import wx from "@api/wx";
 import {
@@ -136,7 +136,9 @@ export default defineComponent({
     data() {
         return {
             partlist: [],
-            store: useStore()
+            store: useStore(),
+            amount:getCurrentInstance()?.appContext.config.globalProperties.$globals["globalAmount"],
+            path:getCurrentInstance()?.appContext.config.globalProperties.$globals["globalPath"]
         };
     },
     mounted() {
@@ -166,7 +168,7 @@ export default defineComponent({
                     console.log(res)
                 sessionStorage.setItem("isBuy",res.buy)
                 if (res.buy == true){
-                   window.location.href =location.origin +"/totoro/list"
+                   window.location.href =location.origin +"/"+this.$data.path+"/list"
                 }else{
                     hotlist(params).then((res1) => {
                     this.$data.partlist = res1.data
@@ -179,7 +181,7 @@ export default defineComponent({
         payFor() {
             let param = {
                 openid: localStorage.getItem("openid"),
-                amount: 990,
+                amount: this.$data.amount,
                 type: 2
             };
             getOrders(param).then((res) => {
