@@ -1,6 +1,29 @@
 <template>
 <div class="check">
     <h2>审核页面</h2>
+    <div>
+    <van-dropdown-menu>
+  <van-dropdown-item v-model="value" :options="options" />
+  <van-dropdown-item title="筛选" ref="item">
+    <van-cell center title="包邮">
+      <template #right-icon>
+        <van-switch v-model="switch1" />
+      </template>
+    </van-cell>
+    <van-cell center title="团购">
+      <template #right-icon>
+        <van-switch v-model="switch2" />
+      </template>
+    </van-cell>
+    <div style="padding: 5px 16px;">
+      <van-button type="primary" block round @click="onConfirm">
+        确认
+      </van-button>
+    </div>
+  </van-dropdown-item>
+</van-dropdown-menu>
+    
+    </div>
     <van-loading v-show="isLoad" size="24px" style="text-align:center">加载中...</van-loading>
     <div class="check_container">
         <van-row justify="space-between">
@@ -16,11 +39,14 @@
                 <van-button type="primary" @click="showPopup(item)" size="mini">内容</van-button>
             </van-col>
             <van-col span="8">
-                <van-button type="primary" @click="showPopup(item)" size="mini">置顶</van-button> / <van-button type="primary" @click="showPopup(item)" size="mini">通过</van-button>
+                <van-button v-if="item.status ==1" type="success" size="mini">正常</van-button>
+                <van-button v-if="item.status ==3" type="primary" @click="showPopup(item)" size="mini">通过</van-button>
+                <van-button v-if="item.status ==2" type="primary" @click="showPopup(item)" size="mini">下线</van-button>
+                <van-button type="primary" @click="showPopup(item)" size="mini">置顶</van-button> 
             </van-col>
         </van-row>
     </div>
-    <div>
+    <div class="check_page">
         <van-pagination v-model="page" :total-items="total" @change="changePage" :show-page-size="4" force-ellipses />
     </div>
 </div>
@@ -40,7 +66,7 @@ import {
     Loading,
     Pagination,
     Dialog,
-    showDialog,
+    showDialog,DropdownMenu, DropdownItem,
     Button
 } from "vant";
 export default defineComponent({
@@ -51,6 +77,8 @@ export default defineComponent({
         [Pagination.name]: Pagination,
         [Dialog.name]: Dialog,
         [Button.name]: Button,
+        [DropdownMenu.name]: DropdownMenu,
+        [DropdownItem.name]: DropdownItem,
     },
     data() {
         return {
@@ -60,6 +88,14 @@ export default defineComponent({
             total: 0,
             pageSize: 10,
             finished: false,
+
+            switch1 :false,
+            switch2 : false,
+            options : [
+      { text: '全部商品', value: 0 },
+      { text: '新款商品', value: 1 },
+      { text: '活动商品', value: 2 },
+    ]
         };
     },
     mounted() {
@@ -100,6 +136,9 @@ export default defineComponent({
             this.getPartList()
             console.log(e)
         },
+        onConfirm(){
+            // this.$data.item.value.toggle();
+        }
     },
 });
 </script>
@@ -108,10 +147,10 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .check {
-    height: 100%;
+    height: 90vh;
     text-align: center;
     padding: 10px;
-
+    position: relative;
     .check_container {
         background-color: white;
         font-size: 13px;
@@ -121,6 +160,10 @@ export default defineComponent({
             padding: 4px;
             border-bottom: 1px solid white;
         }
+    }
+    .check_page{
+        // position: absolute;
+        //  bottom:0;left:0 ;right:0;
     }
 
 }
