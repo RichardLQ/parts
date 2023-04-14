@@ -1,28 +1,15 @@
 <template>
 <div class="check">
     <h2>审核页面</h2>
-    <div>
-    <van-dropdown-menu>
-  <van-dropdown-item v-model="value" :options="options" />
-  <van-dropdown-item title="筛选" ref="item">
-    <van-cell center title="包邮">
-      <template #right-icon>
-        <van-switch v-model="switch1" />
-      </template>
-    </van-cell>
-    <van-cell center title="团购">
-      <template #right-icon>
-        <van-switch v-model="switch2" />
-      </template>
-    </van-cell>
-    <div style="padding: 5px 16px;">
-      <van-button type="primary" block round @click="onConfirm">
-        确认
-      </van-button>
-    </div>
-  </van-dropdown-item>
-</van-dropdown-menu>
-    
+    <div class="check_search">
+        <div>
+            <van-dropdown-menu>
+                <van-dropdown-item v-model="value1" :options="options1" />
+            </van-dropdown-menu>
+        </div>
+        <div>
+            <van-search v-model="value" placeholder="请输入搜索关键词" input-align="center" />
+        </div>
     </div>
     <van-loading v-show="isLoad" size="24px" style="text-align:center">加载中...</van-loading>
     <div class="check_container">
@@ -42,7 +29,7 @@
                 <van-button v-if="item.status ==1" type="success" size="mini">正常</van-button>
                 <van-button v-if="item.status ==3" type="primary" @click="showPopup(item)" size="mini">通过</van-button>
                 <van-button v-if="item.status ==2" type="primary" @click="showPopup(item)" size="mini">下线</van-button>
-                <van-button type="primary" @click="showPopup(item)" size="mini">置顶</van-button> 
+                <van-button type="primary" @click="showPopup(item)" size="mini">置顶</van-button>
             </van-col>
         </van-row>
     </div>
@@ -66,7 +53,10 @@ import {
     Loading,
     Pagination,
     Dialog,
-    showDialog,DropdownMenu, DropdownItem,
+    showDialog,
+    DropdownMenu,
+    DropdownItem,
+    Search,
     Button
 } from "vant";
 export default defineComponent({
@@ -79,6 +69,7 @@ export default defineComponent({
         [Button.name]: Button,
         [DropdownMenu.name]: DropdownMenu,
         [DropdownItem.name]: DropdownItem,
+        [Search.name]: Search,
     },
     data() {
         return {
@@ -89,13 +80,42 @@ export default defineComponent({
             pageSize: 10,
             finished: false,
 
-            switch1 :false,
-            switch2 : false,
-            options : [
-      { text: '全部商品', value: 0 },
-      { text: '新款商品', value: 1 },
-      { text: '活动商品', value: 2 },
-    ]
+            value1: 0,
+            value2: 1,
+            options1: [{
+                    text: '全部列表',
+                    value: 0
+                },
+                {
+                    text: '正常列表',
+                    value: 1
+                },
+                {
+                    text: '置顶列表',
+                    value: 2
+                },
+                {
+                    text: '删除列表',
+                    value: 3
+                },
+                {
+                    text: '待审核',
+                    value: 3
+                },
+            ],
+            options2: [{
+                    text: '全部商品',
+                    value: 0
+                },
+                {
+                    text: '新款商品',
+                    value: 1
+                },
+                {
+                    text: '活动商品',
+                    value: 2
+                },
+            ],
         };
     },
     mounted() {
@@ -136,7 +156,7 @@ export default defineComponent({
             this.getPartList()
             console.log(e)
         },
-        onConfirm(){
+        onConfirm() {
             // this.$data.item.value.toggle();
         }
     },
@@ -151,6 +171,15 @@ export default defineComponent({
     text-align: center;
     padding: 10px;
     position: relative;
+
+    .check_search {
+        display: flex;
+
+        div {
+            flex: 1
+        }
+    }
+
     .check_container {
         background-color: white;
         font-size: 13px;
@@ -161,7 +190,8 @@ export default defineComponent({
             border-bottom: 1px solid white;
         }
     }
-    .check_page{
+
+    .check_page {
         // position: absolute;
         //  bottom:0;left:0 ;right:0;
     }

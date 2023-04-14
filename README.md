@@ -53,4 +53,4 @@ node 版本过高，可以在命令行  输入 node -v 查看版本
 axios封装https://blog.csdn.net/qq_56989560/article/details/125032315
 https://blog.csdn.net/m0_66285809/article/details/127304923
 vue.config.js使用http://events.jianshu.io/p/8e555060626a
-浏览器跨域chrome.exe --disable-site-isolation-trials --disable-web-security --user-data-dir="G:\chromeTemp"
+浏览器跨域chrome.exe --disable-site-isolation-trials --disable-web-security --user-data-dir="D:\chromeTemp"
